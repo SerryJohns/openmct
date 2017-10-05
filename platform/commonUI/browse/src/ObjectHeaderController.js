@@ -65,10 +65,10 @@ define(
         /**
          * Checks if the domain object is editable.
          *
-         * @private 
+         * @private
          * @return true if object is editable
          */
-        ObjectHeaderController.prototype.allowEdit = function() {
+        ObjectHeaderController.prototype.allowEdit = function () {
             var type = this.domainObject && this.domainObject.getCapability('type');
             return !!(type && type.hasFeature('creation'));
         };
