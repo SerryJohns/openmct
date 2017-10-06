@@ -41,12 +41,19 @@ define(
          * @param event the mouse event
          */
         ObjectHeaderController.prototype.updateName = function (event) {
-            if (event && (event.type === 'blur' || event.which === 13)) {
-                var name = event.currentTarget.innerHTML;
+            if (!event) {
+                return;
+            }
+
+            if (event.which === 13) {
+                event.currentTarget.blur();
+                window.getSelection().removeAllRanges();
+            } else if (event.type === 'blur') {
+                var name = event.currentTarget.textContent;
 
                 if (name.length === 0) {
                     name = "Unnamed " + this.$scope.domainObject.getCapability("type").typeDef.name;
-                    event.currentTarget.innerHTML = name;
+                    event.currentTarget.textContent = name;
                 }
 
                 if (name !== this.$scope.domainObject.model.name) {
@@ -56,10 +63,6 @@ define(
                 }
 
                 this.$scope.editing = false;
-
-                if (event.which === 13) {
-                    event.currentTarget.blur();
-                }
             }
         };
 
